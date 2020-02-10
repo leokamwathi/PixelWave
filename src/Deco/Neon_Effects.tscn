@@ -1,0 +1,50 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://src/Deco/cross_medium.gd" type="Script" id=1]
+[ext_resource path="res://assets/squares/LargeShapes/neon-triangle-gray-large.png" type="Texture" id=2]
+[ext_resource path="res://assets/squares/LargeShapes/neon-circle-gray.png" type="Texture" id=3]
+[ext_resource path="res://assets/squares/LargeShapes/neon-heart-gray.png" type="Texture" id=4]
+[ext_resource path="res://assets/squares/LargeShapes/neon-diamond-gray.png" type="Texture" id=5]
+[ext_resource path="res://assets/squares/LargeShapes/neon-star-gray.png" type="Texture" id=6]
+[ext_resource path="res://assets/squares/LargeShapes/neon-triangle-gray-filled.png" type="Texture" id=7]
+[ext_resource path="res://assets/squares/LargeShapes/neon-circle-gray-fill.png" type="Texture" id=8]
+[ext_resource path="res://assets/squares/LargeShapes/neon-heart-gray-filled.png" type="Texture" id=9]
+[ext_resource path="res://assets/squares/LargeShapes/neon-diamond-gray-fill.png" type="Texture" id=10]
+[ext_resource path="res://assets/squares/LargeShapes/neon-star-gray-filled.png" type="Texture" id=11]
+[ext_resource path="res://assets/squares/LargeShapes/neon-triangle-white-20.png" type="Texture" id=12]
+[ext_resource path="res://assets/squares/LargeShapes/neon-circle-white-20.png" type="Texture" id=13]
+[ext_resource path="res://assets/squares/LargeShapes/neon-heart-white-20.png" type="Texture" id=14]
+[ext_resource path="res://assets/squares/LargeShapes/neon-diamond-white-20.png" type="Texture" id=15]
+[ext_resource path="res://assets/squares/LargeShapes/neon-star-white-20.png" type="Texture" id=16]
+[ext_resource path="res://src/Deco/neon-cross_medium_grow.gd" type="Script" id=17]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[node name="Neon_Effect" type="Node2D"]
+z_index = -1
+script = ExtResource( 1 )
+effectTexture = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
+effectTextureFill = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
+effectBeam = [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ]
+effectNames = [ "Triangle", "Circle", "Heart", "Diamond", "Star" ]
+
+[node name="Neon_Texture_Fill" type="Sprite" parent="."]
+modulate = Color( 0.215686, 0, 0.980392, 1 )
+material = SubResource( 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 7 )
+script = ExtResource( 17 )
+
+[node name="Neon_Texture" type="Sprite" parent="."]
+modulate = Color( 0.215686, 0, 0.980392, 1 )
+material = SubResource( 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+script = ExtResource( 17 )
+
+[node name="Neon_Beam" type="Sprite" parent="."]
+material = SubResource( 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 12 )
+script = ExtResource( 17 )

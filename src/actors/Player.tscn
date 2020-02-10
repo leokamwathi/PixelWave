@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/actors/player.gd" type="Script" id=1]
+[ext_resource path="res://src/Deco/ParticlesEmitter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/squares/Glow_3/20x20_rainbow.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9.84694, 9.91118 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -3.25162, -3.3451, 3.4734, -3.3451, 3.3272, 3.16062, -3.25162, 3.23371 )
+
+[node name="player" type="KinematicBody2D"]
+position = Vector2( 0.125778, 0.0121593 )
+scale = Vector2( 1.5, 1.5 )
+collision_mask = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ParticlesEmitter" parent="." instance=ExtResource( 2 )]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="bullet_container" type="Node" parent="."]
+
+[node name="20x20_rainbow" type="Sprite" parent="."]
+position = Vector2( 0.064, 0.032 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0626717, -0.0341973 )
+shape = SubResource( 1 )
+
+[node name="ParticleGun" type="Position2D" parent="."]
+position = Vector2( 7.14465, 0.0137873 )
+
+[node name="rateOfFire" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 2 )

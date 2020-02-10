@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/squares/8x8_white.png" type="Texture" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.765432, 1 )
+colors = PoolColorArray( 0.93529, 0.0193024, 0.988281, 1, 0.992188, 0.589111, 0.967702, 1, 1, 1, 1, 0 )
+
+[node name="Node" type="Node"]
+
+[node name="Supernova" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 100
+lifetime = 1.6
+preprocess = 0.25
+explosiveness = 1.0
+texture = ExtResource( 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+angular_velocity = 159.31
+linear_accel = 1.0
+radial_accel = 1.0
+damping = 22.0
+angle = 45.0
+angle_random = 1.0
+color_ramp = SubResource( 1 )

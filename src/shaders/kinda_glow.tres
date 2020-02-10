@@ -1,0 +1,166 @@
+[gd_resource type="VisualShader" load_steps=7 format=2]
+
+[sub_resource type="VisualShaderNodeTexture" id=1]
+source = 2
+
+[sub_resource type="VisualShaderNodeColorOp" id=2]
+operator = 4
+
+[sub_resource type="VisualShaderNodeColorOp" id=3]
+operator = 4
+
+[sub_resource type="VisualShaderNodeColorOp" id=4]
+operator = 4
+
+[sub_resource type="VisualShaderNodeInput" id=5]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeInput" id=6]
+input_name = "uv"
+
+[resource]
+code = "shader_type canvas_item;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Input:9
+	vec3 n_out9p0;
+	n_out9p0 = vec3(UV,0.0);
+
+// Texture:10
+	vec3 n_out10p0;
+	float n_out10p1;
+	{
+		vec4 _tex_read = texture( TEXTURE , n_out9p0.xy );
+		n_out10p0 = _tex_read.rgb;
+		n_out10p1 = _tex_read.a;
+	}
+
+// Input:7
+	vec3 n_out7p0;
+	n_out7p0 = COLOR.rgb;
+
+// ColorOp:4
+	vec3 n_out4p0;
+	{
+		float base=n_out10p0.x;
+		float blend=n_out7p0.x;
+		if (base < 0.5) {
+			n_out4p0.x = 2.0 * base * blend;
+		} else {
+			n_out4p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base=n_out10p0.y;
+		float blend=n_out7p0.y;
+		if (base < 0.5) {
+			n_out4p0.y = 2.0 * base * blend;
+		} else {
+			n_out4p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base=n_out10p0.z;
+		float blend=n_out7p0.z;
+		if (base < 0.5) {
+			n_out4p0.z = 2.0 * base * blend;
+		} else {
+			n_out4p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+// ColorOp:11
+	vec3 n_out11p0;
+	{
+		float base=n_out4p0.x;
+		float blend=n_out7p0.x;
+		if (base < 0.5) {
+			n_out11p0.x = 2.0 * base * blend;
+		} else {
+			n_out11p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base=n_out4p0.y;
+		float blend=n_out7p0.y;
+		if (base < 0.5) {
+			n_out11p0.y = 2.0 * base * blend;
+		} else {
+			n_out11p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base=n_out4p0.z;
+		float blend=n_out7p0.z;
+		if (base < 0.5) {
+			n_out11p0.z = 2.0 * base * blend;
+		} else {
+			n_out11p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+// ColorOp:12
+	vec3 n_out12p0;
+	{
+		float base=n_out11p0.x;
+		float blend=n_out7p0.x;
+		if (base < 0.5) {
+			n_out12p0.x = 2.0 * base * blend;
+		} else {
+			n_out12p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base=n_out11p0.y;
+		float blend=n_out7p0.y;
+		if (base < 0.5) {
+			n_out12p0.y = 2.0 * base * blend;
+		} else {
+			n_out12p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base=n_out11p0.z;
+		float blend=n_out7p0.z;
+		if (base < 0.5) {
+			n_out12p0.z = 2.0 * base * blend;
+		} else {
+			n_out12p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+// Output:0
+	COLOR.rgb = n_out12p0;
+	COLOR.a = n_out10p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 93.3001, 36.6717 )
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 697, 187 )
+nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/position = Vector2( 408, 34 )
+nodes/fragment/7/node = SubResource( 5 )
+nodes/fragment/7/position = Vector2( 85, 255 )
+nodes/fragment/9/node = SubResource( 6 )
+nodes/fragment/9/position = Vector2( 102, 68 )
+nodes/fragment/10/node = SubResource( 1 )
+nodes/fragment/10/position = Vector2( 85, 136 )
+nodes/fragment/11/node = SubResource( 2 )
+nodes/fragment/11/position = Vector2( 408, 136 )
+nodes/fragment/12/node = SubResource( 3 )
+nodes/fragment/12/position = Vector2( 408, 238 )
+nodes/fragment/connections = PoolIntArray( 9, 0, 10, 0, 10, 1, 0, 1, 10, 0, 4, 0, 7, 0, 4, 1, 4, 0, 11, 0, 7, 0, 11, 1, 11, 0, 12, 0, 7, 0, 12, 1, 12, 0, 0, 0 )

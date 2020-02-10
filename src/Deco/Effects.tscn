@@ -1,0 +1,32 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/Deco/cross_medium.gd" type="Script" id=1]
+[ext_resource path="res://assets/squares/LargeShapes/neon-triangle-gray-large.png" type="Texture" id=2]
+[ext_resource path="res://assets/squares/LargeShapes/neon-circle-gray.png" type="Texture" id=3]
+[ext_resource path="res://assets/squares/LargeShapes/neon-heart-gray.png" type="Texture" id=4]
+[ext_resource path="res://assets/squares/LargeShapes/neon-triangle-white-20.png" type="Texture" id=5]
+[ext_resource path="res://assets/squares/LargeShapes/neon-circle-white-20.png" type="Texture" id=6]
+[ext_resource path="res://assets/squares/LargeShapes/neon-heart-white-20.png" type="Texture" id=7]
+[ext_resource path="res://src/Deco/neon-cross_medium_grow.gd" type="Script" id=8]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[node name="effects" type="Node2D"]
+script = ExtResource( 1 )
+effectTexture = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
+effectBeam = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
+effectNames = [ "Triangle", "Circle", "Heart" ]
+
+[node name="Neon_Texture" type="Sprite" parent="."]
+modulate = Color( 0.215686, 0, 0.980392, 1 )
+material = SubResource( 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+script = ExtResource( 8 )
+
+[node name="Neon_Beam" type="Sprite" parent="."]
+material = SubResource( 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 5 )
+script = ExtResource( 8 )

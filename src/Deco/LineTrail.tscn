@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/squares/Glow_3/5x20_cyan.png" type="Texture" id=1]
+[ext_resource path="res://src/Deco/LineTrail.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0, 0, 0, 0, 0.599357, 0.613281, 0.598907, 1 )
+
+[node name="LineTrail" type="Line2D"]
+position = Vector2( 10.9054, -0.00135705 )
+rotation = 1.5522e-010
+scale = Vector2( 1.5, 1.5 )
+z_index = -50
+points = PoolVector2Array( -0.806644, 9.37589 )
+width = 20.0
+gradient = SubResource( 1 )
+texture = ExtResource( 1 )
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource( 2 )

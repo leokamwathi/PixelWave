@@ -1,0 +1,164 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://src/actors/PlayerArea.gd" type="Script" id=1]
+[ext_resource path="res://src/actors/PlayerBullet2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Deco/LineEffect.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Deco/Neon_Effects.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Deco/laserLinesEffect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/squares/Glow_3/SQUARE/10x10_gray.png" type="Texture" id=6]
+[ext_resource path="res://src/Deco/ParticlesEmitter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/squares/16x16_gray.png" type="Texture" id=8]
+[ext_resource path="res://src/actors/trail_container.gd" type="Script" id=9]
+[ext_resource path="res://src/Deco/LineTrail.tscn" type="PackedScene" id=10]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 9.84694, 9.91118 )
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=3]
+constant = 50.0
+
+[sub_resource type="VisualShaderNodeColorConstant" id=4]
+constant = Color( 0.0334167, 0.255656, 0.285156, 1 )
+
+[sub_resource type="VisualShaderNodeTexture" id=5]
+
+[sub_resource type="VisualShaderNodeVectorOp" id=6]
+
+[sub_resource type="VisualShaderNodeInput" id=7]
+input_name = "fragcoord"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=8]
+operator = 3
+
+[sub_resource type="VisualShaderNodeInput" id=9]
+
+[sub_resource type="VisualShader" id=10]
+code = "shader_type spatial;
+uniform sampler2D tex_frg_5;
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:4
+	vec3 n_out4p0;
+	float n_out4p1;
+	n_out4p0 = vec3(0.033417,0.255656,0.285156);
+	n_out4p1 = 1.000000;
+
+// Texture:5
+	vec3 n_out5p0;
+	float n_out5p1;
+	vec4 tex_frg_5_read = vec4(0.0);
+	n_out5p0 = tex_frg_5_read.rgb;
+	n_out5p1 = tex_frg_5_read.a;
+
+// VectorOp:6
+	vec3 n_out6p0;
+	n_out6p0 = n_out4p0 + n_out5p0;
+
+// Scalar:3
+	float n_out3p0;
+	n_out3p0 = 50.000000;
+
+// Output:0
+	NORMAL = n_out6p0;
+	RIM = n_out3p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 0, 299.5 )
+nodes/fragment/0/position = Vector2( 420, 500 )
+nodes/fragment/3/node = SubResource( 3 )
+nodes/fragment/3/position = Vector2( -20, 680 )
+nodes/fragment/4/node = SubResource( 4 )
+nodes/fragment/4/position = Vector2( 40, 740 )
+nodes/fragment/5/node = SubResource( 5 )
+nodes/fragment/5/position = Vector2( 20, 840 )
+nodes/fragment/6/node = SubResource( 6 )
+nodes/fragment/6/position = Vector2( 220, 780 )
+nodes/fragment/7/node = SubResource( 7 )
+nodes/fragment/7/position = Vector2( 60, 580 )
+nodes/fragment/8/node = SubResource( 8 )
+nodes/fragment/8/position = Vector2( 280, 600 )
+nodes/fragment/9/node = SubResource( 9 )
+nodes/fragment/9/position = Vector2( 375.5, 757.5 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 0, 10, 5, 0, 6, 1, 4, 0, 6, 0, 6, 0, 0, 7, 7, 0, 8, 0 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+
+[node name="Player" type="Area2D"]
+material = SubResource( 1 )
+rotation = -0.00233881
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+collision_mask = 34
+script = ExtResource( 1 )
+bullet = ExtResource( 2 )
+lineEffectNode = ExtResource( 3 )
+EffectNode = ExtResource( 4 )
+laserLineEffectNode = ExtResource( 5 )
+playerTexture = ExtResource( 6 )
+playerColor = Color( 0.278431, 0.984314, 0.329412, 1 )
+speed = Vector2( 400, 400 )
+playerNumber = 1
+color_array = [ Color( 0.501961, 1, 0.25098, 1 ), Color( 1, 1, 0, 1 ), Color( 1, 0.501961, 0.25098, 1 ), Color( 1, 0.25098, 0.25098, 1 ), Color( 0.980392, 0.141176, 0.929412, 1 ), Color( 0.682353, 0.0941176, 0.984314, 1 ), Color( 0.0431373, 0.992157, 0.968627, 1 ), Color( 0.176471, 0.352941, 0.984314, 1 ) ]
+color_array2 = [ Color( 1, 0, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 0, 1, 1, 1 ) ]
+color_array3 = [ Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 0, 1, 0, 1 ), Color( 0, 1, 1, 1 ), Color( 0, 0, 1, 1 ), Color( 1, 0, 1, 1 ) ]
+color_array4 = [ Color( 0, 1, 1, 1 ), Color( 1, 0, 1, 1 ) ]
+
+[node name="info" type="Label" parent="."]
+visible = false
+margin_right = 273.0
+margin_bottom = 115.0
+
+[node name="rateOfFire" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0.282458, -0.0733339 )
+scale = Vector2( 1.5, 1.5 )
+shape = SubResource( 2 )
+
+[node name="ParticlesEmitter" parent="." instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 0.18845, -0.022038 )
+scale = Vector2( 0.75, 0.75 )
+
+[node name="effects_container" type="Node" parent="."]
+
+[node name="line_effect_container" type="Node" parent="."]
+
+[node name="laser_line_effect_container" type="Node" parent="."]
+
+[node name="bullet_container" type="Node" parent="."]
+
+[node name="20x20_rainbow" type="Sprite" parent="."]
+material = SubResource( 11 )
+position = Vector2( 0.28445, 0.025962 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 8 )
+
+[node name="ParticleGun" type="Position2D" parent="."]
+position = Vector2( 12.4551, 0.00226739 )
+rotation = 1.5522e-010
+scale = Vector2( 1.5, 1.5 )
+
+[node name="trail_container" type="Node2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 9 )
+
+[node name="LineTrail" parent="trail_container" instance=ExtResource( 10 )]
