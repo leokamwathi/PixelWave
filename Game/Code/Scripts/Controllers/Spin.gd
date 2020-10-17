@@ -1,5 +1,7 @@
 extends Node
 
+export var Enabled := bool(true)
+export var SpinRate := float(100)
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,4 +16,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	get_parent().global_rotation += 0.1
+	if !Enabled : 
+		return
+	get_parent().get_node_or_null("Img").global_rotation += SpinRate
