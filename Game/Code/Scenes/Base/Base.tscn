@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Game/Code/Scenes/Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://Game/Code/Scripts/Controllers/Movement.gd" type="Script" id=2]
@@ -36,6 +36,8 @@
 [ext_resource path="res://Game/Assets/Effects/Images/LargeShapes/neon-triangle-gray-filled.png" type="Texture" id=34]
 [ext_resource path="res://Game/Assets/Effects/Images/LargeShapes/neon-heart-gray-filled.png" type="Texture" id=35]
 [ext_resource path="res://Game/Assets/Effects/Images/LargeShapes/neon-star-gray-filled.png" type="Texture" id=36]
+[ext_resource path="res://Game/Assets/Effects/Images/Glow/20x20_blue.png" type="Texture" id=37]
+[ext_resource path="res://Game/Code/Scenes/Player/Particles2D.gd" type="Script" id=38]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
@@ -65,6 +67,17 @@ colors = PoolColorArray( 0, 0, 0, 0, 0.878431, 0.882353, 0.886275, 0.647059, 1, 
 
 [sub_resource type="CanvasItemMaterial" id=9]
 blend_mode = 1
+
+[sub_resource type="ParticlesMaterial" id=12]
+lifetime_randomness = 1.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+angular_velocity = 20.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
 
 [sub_resource type="Environment" id=10]
 background_mode = 4
@@ -207,12 +220,21 @@ script = ExtResource( 8 )
 [node name="Resizer" type="Node" parent="Game/PlayersContainer/PlayerInstance"]
 script = ExtResource( 9 )
 
+[node name="Particles" type="Particles2D" parent="Game/PlayersContainer/PlayerInstance"]
+amount = 5000
+local_coords = false
+draw_order = 1
+process_material = SubResource( 12 )
+texture = ExtResource( 37 )
+script = ExtResource( 38 )
+
 [node name="ColorArray" type="Node" parent="Game"]
 script = ExtResource( 16 )
 color_array2 = [ Color( 1, 0, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 0, 1, 1, 1 ) ]
 color_array3 = [ Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 0.172549, 0.972549, 0.0352941, 1 ), Color( 0.054902, 0.972549, 0.952941, 1 ), Color( 0.0313726, 0.196078, 0.960784, 1 ), Color( 0.905882, 0.0470588, 0.980392, 1 ) ]
 color_array4 = [ Color( 0.027451, 0.976471, 0.952941, 1 ), Color( 0.980392, 0.0196078, 0.964706, 1 ) ]
 color_array5 = [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ) ]
+colorWheel = [ [ Color( 0.39, 0.68, 0.21, 1 ), Color( 1, 1, 0.32, 1 ), Color( 0.98, 0.6, 0.07, 1 ), Color( 1, 0.15, 0.07, 1 ), Color( 0.51, 0, 0.65, 1 ), Color( 0.07, 0.27, 0.98, 1 ) ], [ Color( 1, 1, 1, 1 ) ], [ Color( 0.00392157, 0.827451, 0.988235, 1 ), Color( 0.909804, 0.203922, 0.780392, 1 ), Color( 0.529412, 1, 0.0156863, 1 ) ], [ Color( 0.988235, 1, 0.984314, 1 ), Color( 0.0784314, 0.0627451, 0.560784, 1 ), Color( 1, 0.501961, 0, 1 ) ], [ Color( 0.976471, 0, 0, 1 ), Color( 0.25098, 0.972549, 0.0196078, 1 ), Color( 0.984314, 0.945098, 0.0235294, 1 ), Color( 0.141176, 0.337255, 1, 1 ) ] ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 10 )

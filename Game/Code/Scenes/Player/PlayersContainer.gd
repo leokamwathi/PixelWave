@@ -4,6 +4,7 @@ var orbits := int(1)
 var rotateBy = 0
 var absolutePosition := Vector2.ZERO
 var absoluteSet := bool(false)
+var particleLifeTime := float(1.5)
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -23,6 +24,12 @@ func _process(delta):
 		alignPlayers()
 
 func _input(event):
+	
+	if event.is_action_pressed("ParticleMode"):
+		particleLifeTime += 0.5
+		if particleLifeTime > 3.0:
+			particleLifeTime = 0.0
+	
 	if event.is_action_pressed("SwitchMode"):
 		if mode == "mirror":
 			mode = "reflect"
