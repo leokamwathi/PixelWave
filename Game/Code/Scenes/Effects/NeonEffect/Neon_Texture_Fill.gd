@@ -30,18 +30,20 @@ func _physics_process(delta):
 				rotation += 1*delta*spinrate
 			coolDown -= 1*delta
 	else:
-		if scale.x < 1.0 && grow_rate > 0.0:
-			var delsim = float((scale.x) + grow_rate)
-			scale.x += delsim*delta
-			scale.y += delsim*delta
+		if grow_rate > 0.0:
+			if scale.x < 1.0:
+				var delsim = float((scale.x) + grow_rate)
+				scale.x += delsim*delta
+				scale.y += delsim*delta
 			if spin:
 				rotation += 1*delta*spinrate
-		elif scale.x > 0.0 && grow_rate < 0:
-			#var delsim = float((scale.x) - abs(grow_rate)
-			var delsim = abs(grow_rate)
-			scale.x -= delsim*delta
-			scale.y -= delsim*delta
+		elif grow_rate < 0:
+			if scale.x > 0.0:
+				#var delsim = float((scale.x) - abs(grow_rate)
+				var delsim = abs(grow_rate)
+				scale.x -= delsim*delta
+				scale.y -= delsim*delta
 			if spin:
 				rotation += 1*delta*spinrate
-		else:
+		if scale.x > 1.0 || scale.x < 0.0:
 			visible = false

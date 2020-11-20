@@ -1,6 +1,7 @@
 extends Particles2D
 var emitCheck = 100
 var oldAmount = 0
+var autoParticle = false
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -22,7 +23,7 @@ func _process(delta):
 		emitting = false
 	modulate = get_parent().get_node("Trail").modulate
 	emitCheck -= 100*delta
-	if emitting && emitCheck < 0:
+	if emitting && emitCheck < 0 && autoParticle:
 		emitCheck = 100
 		var stabilityFactor = Engine.get_frames_per_second()/60.0
 		var newAmount = 500 * stabilityFactor

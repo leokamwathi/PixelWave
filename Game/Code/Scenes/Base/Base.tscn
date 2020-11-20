@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://Game/Code/Scenes/Base/Base.gd" type="Script" id=1]
 [ext_resource path="res://Game/Code/Scripts/Controllers/Movement.gd" type="Script" id=2]
@@ -38,6 +38,9 @@
 [ext_resource path="res://Game/Assets/Effects/Images/LargeShapes/neon-star-gray-filled.png" type="Texture" id=36]
 [ext_resource path="res://Game/Assets/Effects/Images/Glow/20x20_blue.png" type="Texture" id=37]
 [ext_resource path="res://Game/Code/Scenes/Player/Particles2D.gd" type="Script" id=38]
+[ext_resource path="res://Game/Code/Scenes/Effects/Fireworks/Sparkles.gd" type="Script" id=39]
+[ext_resource path="res://Game/Code/Scenes/Effects/Starfield/Starfield.gd" type="Script" id=40]
+[ext_resource path="res://Game/Code/Scenes/Effects/Starfield/particle.tres" type="Material" id=41]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
@@ -49,6 +52,7 @@ blend_mode = 1
 blend_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id=4]
+next_pass = SubResource( 3 )
 blend_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id=5]
@@ -57,15 +61,21 @@ blend_mode = 1
 [sub_resource type="CanvasItemMaterial" id=6]
 blend_mode = 1
 
-[sub_resource type="Curve" id=7]
+[sub_resource type="CanvasItemMaterial" id=7]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=8]
+blend_mode = 1
+
+[sub_resource type="Curve" id=9]
 bake_resolution = 10
 _data = [ Vector2( 0, 0.0181818 ), 0.0, 8.90909, 0, 0, Vector2( 0.242347, 0.954545 ), 0.0869179, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=10]
 offsets = PoolRealArray( 0, 0.171745, 0.518006 )
 colors = PoolColorArray( 0, 0, 0, 0, 0.878431, 0.882353, 0.886275, 0.647059, 1, 1, 1, 1 )
 
-[sub_resource type="CanvasItemMaterial" id=9]
+[sub_resource type="CanvasItemMaterial" id=11]
 blend_mode = 1
 
 [sub_resource type="ParticlesMaterial" id=12]
@@ -74,19 +84,20 @@ flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 100.0
-angular_velocity = 20.0
+initial_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 0.1
+scale = 0.01
+scale_random = 0.1
 
-[sub_resource type="Environment" id=10]
+[sub_resource type="Environment" id=13]
 background_mode = 4
 glow_enabled = true
 glow_intensity = 0.2
 glow_blend_mode = 0
 glow_bicubic_upscale = true
 
-[sub_resource type="CanvasItemMaterial" id=11]
+[sub_resource type="CanvasItemMaterial" id=14]
 blend_mode = 3
 
 [node name="Base" type="Node"]
@@ -145,23 +156,37 @@ effectBeam = [ ExtResource( 30 ), ExtResource( 26 ), ExtResource( 25 ), ExtResou
 effectNames = [ "Triangle", "Circle", "Heart", "Diamond", "Star" ]
 
 [node name="Neon_Texture_Fill" type="Sprite" parent="Game/Effects/NeonEffects"]
-material = SubResource( 3 )
+material = SubResource( 4 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 34 )
 script = ExtResource( 21 )
 
 [node name="Neon_Texture" type="Sprite" parent="Game/Effects/NeonEffects"]
 modulate = Color( 0.85098, 0, 1, 1 )
-material = SubResource( 4 )
+material = SubResource( 5 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 32 )
 script = ExtResource( 21 )
 
 [node name="Neon_Beam" type="Sprite" parent="Game/Effects/NeonEffects"]
-material = SubResource( 5 )
+material = SubResource( 6 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 30 )
 script = ExtResource( 21 )
+
+[node name="Starfield" type="Node2D" parent="Game/Effects"]
+script = ExtResource( 40 )
+
+[node name="Sparkles" type="Particles2D" parent="Game/Effects/Starfield"]
+material = SubResource( 7 )
+scale = Vector2( 100, 100 )
+amount = 500
+lifetime = 1000.0
+speed_scale = 0.0
+visibility_rect = Rect2( -1000, -1000, 2000, 2000 )
+process_material = ExtResource( 41 )
+texture = ExtResource( 37 )
+script = ExtResource( 39 )
 
 [node name="PlayersContainer" type="Node" parent="Game"]
 script = ExtResource( 12 )
@@ -173,10 +198,10 @@ script = ExtResource( 11 )
 script = ExtResource( 5 )
 
 [node name="InnerTrail" type="Line2D" parent="Game/PlayersContainer/PlayerInstance/Trail"]
-material = SubResource( 6 )
+material = SubResource( 8 )
 points = PoolVector2Array( 0, 0 )
-width_curve = SubResource( 7 )
-gradient = SubResource( 8 )
+width_curve = SubResource( 9 )
+gradient = SubResource( 10 )
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -186,11 +211,11 @@ script = ExtResource( 6 )
 
 [node name="OutterTrial" type="Line2D" parent="Game/PlayersContainer/PlayerInstance/Trail"]
 self_modulate = Color( 0.0156863, 0.666667, 0.984314, 1 )
-material = SubResource( 9 )
+material = SubResource( 11 )
 points = PoolVector2Array( 0, 0 )
 width = 20.0
-width_curve = SubResource( 7 )
-gradient = SubResource( 8 )
+width_curve = SubResource( 9 )
+gradient = SubResource( 10 )
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -221,7 +246,11 @@ script = ExtResource( 8 )
 script = ExtResource( 9 )
 
 [node name="Particles" type="Particles2D" parent="Game/PlayersContainer/PlayerInstance"]
+material = SubResource( 7 )
 amount = 5000
+lifetime = 3.0
+randomness = 1.0
+fixed_fps = 60
 local_coords = false
 draw_order = 1
 process_material = SubResource( 12 )
@@ -233,11 +262,11 @@ script = ExtResource( 16 )
 color_array2 = [ Color( 1, 0, 1, 1 ), Color( 1, 1, 0, 1 ), Color( 0, 1, 1, 1 ) ]
 color_array3 = [ Color( 1, 0, 0, 1 ), Color( 1, 1, 0, 1 ), Color( 0.172549, 0.972549, 0.0352941, 1 ), Color( 0.054902, 0.972549, 0.952941, 1 ), Color( 0.0313726, 0.196078, 0.960784, 1 ), Color( 0.905882, 0.0470588, 0.980392, 1 ) ]
 color_array4 = [ Color( 0.027451, 0.976471, 0.952941, 1 ), Color( 0.980392, 0.0196078, 0.964706, 1 ) ]
-color_array5 = [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 0 ) ]
-colorWheel = [ [ Color( 0.39, 0.68, 0.21, 1 ), Color( 1, 1, 0.32, 1 ), Color( 0.98, 0.6, 0.07, 1 ), Color( 1, 0.15, 0.07, 1 ), Color( 0.51, 0, 0.65, 1 ), Color( 0.07, 0.27, 0.98, 1 ) ], [ Color( 1, 1, 1, 1 ) ], [ Color( 0.00392157, 0.827451, 0.988235, 1 ), Color( 0.909804, 0.203922, 0.780392, 1 ), Color( 0.529412, 1, 0.0156863, 1 ) ], [ Color( 0.988235, 1, 0.984314, 1 ), Color( 0.0784314, 0.0627451, 0.560784, 1 ), Color( 1, 0.501961, 0, 1 ) ], [ Color( 0.976471, 0, 0, 1 ), Color( 0.25098, 0.972549, 0.0196078, 1 ), Color( 0.984314, 0.945098, 0.0235294, 1 ), Color( 0.141176, 0.337255, 1, 1 ) ] ]
+color_array5 = [ Color( 0, 1, 1, 1 ) ]
+colorWheel = [ [ Color( 0.39, 0.68, 0.21, 1 ), Color( 1, 1, 0.32, 1 ), Color( 0.98, 0.6, 0.07, 1 ), Color( 1, 0.15, 0.07, 1 ), Color( 0.51, 0, 0.65, 1 ), Color( 0.07, 0.27, 0.98, 1 ) ], [ Color( 1, 1, 1, 1 ) ], [ Color( 0, 1, 0.988235, 1 ), Color( 1, 1, 0, 1 ) ], [ Color( 1, 0.00784314, 0.00784314, 1 ), Color( 0.00784314, 0, 1, 1 ), Color( 1, 1, 0, 1 ) ], [ Color( 0.976471, 0, 0, 1 ), Color( 0.25098, 0.972549, 0.0196078, 1 ), Color( 0.984314, 0.945098, 0.0235294, 1 ), Color( 0.141176, 0.337255, 1, 1 ), Color( 1, 0, 1, 1 ) ] ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 10 )
+environment = SubResource( 13 )
 script = ExtResource( 7 )
 
 [node name="Pause" type="Node" parent="."]
@@ -245,7 +274,7 @@ pause_mode = 2
 script = ExtResource( 13 )
 
 [node name="PauseScreen" type="Node2D" parent="Pause"]
-material = SubResource( 11 )
+material = SubResource( 14 )
 
 [node name="Control" type="Control" parent="Pause/PauseScreen"]
 margin_right = 40.0
@@ -273,4 +302,5 @@ text = "PAUSED"
 align = 1
 valign = 1
 script = ExtResource( 14 )
+
 [connection signal="timeout" from="Game/Effects/Firework/lifetime" to="Game/Effects/Firework" method="_on_lifetime_timeout"]

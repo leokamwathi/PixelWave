@@ -71,6 +71,7 @@ func setColor(color):
 	if (neon_texture):
 		neon_texture.modulate = color
 		neon_texture_fill.modulate = color
+		neon_beam.modulate = color
 
 func activate(type,spin=false,spinrate=0,mode='expand'):
 	#print(mode)
@@ -110,7 +111,7 @@ func expandMode(type,spin=false,spinrate=0):
 func impandMode(type,spin=false,spinrate=0):
 	#print('Expand')
 	impand = true
-	showFill = true
+	showFill = false
 	fillCoolDown = 1
 	var indexOfType = effectNames.find(type)
 	if indexOfType >= 0:
@@ -144,6 +145,7 @@ func explodeMode(type,spin=false,spinrate=0):
 		#float(playerNode.scale.x*0.3) + 0.1
 		#setNeonTextureTimeout(0.5)
 		
+		#leo
 		neon_texture_fill.visible = false
 		#neon_texture_fill.spinrate=0.0
 		#neon_texture_fill.scale = Vector2.ZERO
