@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 export var CurrentScale := float(1.0)
 export var CurrentSpeed := float(300.0)
 export var mirror := bool(false)

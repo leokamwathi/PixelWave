@@ -11,7 +11,8 @@ func _ready():
 	rect_min_size = get_viewport().size
 	pass # Replace with function body.
 
-func _process(delta):
+#func _process(delta):
+func _physics_process(delta):
 	rect_min_size = get_viewport().size
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

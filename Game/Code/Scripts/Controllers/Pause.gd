@@ -18,6 +18,8 @@ func _input(event):
 
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		get_tree().paused = false
+		$PauseScreen.visible = get_tree().paused 
 		pass
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
 		get_tree().paused = true

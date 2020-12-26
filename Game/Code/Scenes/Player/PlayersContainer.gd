@@ -14,7 +14,8 @@ var particleLifeTime := float(1.5)
 func _ready():
 	#rotateBy = deg2rad(90)
 	pass # Replace with function body.
-func _process(delta):
+#func _process(delta):
+func _physics_process(delta):
 	var rotationAngle = deg2rad((get_child(0).CurrentSpeed/200))
 	if Input.is_action_pressed("RotateUp"):
 		rotateBy += (rotationAngle)
@@ -56,7 +57,7 @@ func _input(event):
 		p.position = get_child(0).position
 		#p.position.x = get_viewport().size.x - p.position.x 
 		#p.position.y = get_viewport().size.y - p.position.y
-		p.transform.origin = get_viewport().size/2
+		#p.transform.origin = get_viewport().size/2
 		add_child(p)
 		alignPlayers()
 		pass
@@ -69,6 +70,8 @@ func alignPlayers():
 	
 	if totalNodes == 1:
 		return
+	if(!get_viewport().size):
+		return
 	var distance = absolutePosition.distance_to(get_viewport().size/2)
 	var dangle = absolutePosition.angle_to_point(get_viewport().size/2)
 	var sliceAngle = (deg2rad(360)/ totalNodes)
@@ -77,7 +80,11 @@ func alignPlayers():
 		if i >= 0:
 			var carry = i%orbits 
 			
-			var point = get_viewport().size/2
+			var point = Vector2(400,300)
+			
+			#if get_parent().mirror : had interesting effect
+			#if get_child(i).mirror :
+			point = get_viewport().size/2
 			
 			#n-(ceil(n/o)*2)
 			var nodePosition = int(i-(ceil((i*(orbits-1))/float(orbits))))

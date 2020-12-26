@@ -10,7 +10,8 @@ extends Sprite
 func _ready():
 	pass # Replace with function body.
 
-func _process(delta):
+#func _process(delta):
+func _physics_process(delta):
 	scale = Vector2(get_parent().CurrentScale,get_parent().CurrentScale)
 	if !get_parent().mirror:
 		modulate = Color(1.0,0.0,0.5,1.0)

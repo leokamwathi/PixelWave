@@ -18,17 +18,20 @@ func _ready():
 	pass # Replace with function body.
 
 func createLine():
+	if get_parent().mirror:
+		return
+	if !(get_viewport()):
+		return
 	oldXY = get_viewport().size
 	borderLine.visible = false
 	borderLine.clear_points()
-	if get_parent().mirror:
-		return
 	borderLine.width = 5
 	#borderLine.default_color(1.0,1.0,1.0,1.0)
 	borderLine.add_point(Vector2(0,0))
-	borderLine.add_point(Vector2(0,get_viewport().size.y))
-	borderLine.add_point(Vector2(get_viewport().size.x,get_viewport().size.y))
-	borderLine.add_point(Vector2(get_viewport().size.x,0))
+	if (get_viewport()):
+		borderLine.add_point(Vector2(0,get_viewport().size.y))
+		borderLine.add_point(Vector2(get_viewport().size.x,get_viewport().size.y))
+		borderLine.add_point(Vector2(get_viewport().size.x,0))
 	borderLine.add_point(Vector2(0,0))
 	
 	
@@ -39,6 +42,8 @@ func createLine():
 	
 func _physics_process(delta):
 	if !Enabled:
+		return
+	if !(get_viewport()):
 		return
 	if mode == "Warp":
 		borderLine.visible = false
@@ -75,6 +80,8 @@ func showLine():
 	pass
 	
 func warpWalls(pos,delta):
+	if !(get_viewport()):
+		return
 	#stop if you touch the walls
 	#what about spwan on otherside 
 	if pos.x <= 0:
@@ -91,6 +98,8 @@ func warpWalls(pos,delta):
 	#get_parent().position.y = clamp(get_parent().position.y, 0, get_viewport().size.y)	
 
 func bounceWalls(pos,delta):
+	if !(get_viewport()):
+		return
 	#stop if you touch the walls
 	#what about spwan on otherside 
 	if pos.x < 0:

@@ -15,7 +15,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+#func _process(delta):
+func _physics_process(delta):
 	if(get_parent().get_parent().particleLifeTime > 0):
 		emitting = true
 		lifetime = get_parent().get_parent().particleLifeTime
@@ -30,8 +31,4 @@ func _process(delta):
 		if (newAmount < (oldAmount*0.9) || newAmount > (oldAmount*1.1) ):
 			amount = newAmount
 			oldAmount = newAmount
-	pass
-func _physics_process(delta):
-	
-	
 	pass
