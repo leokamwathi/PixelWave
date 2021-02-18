@@ -247,6 +247,7 @@ script = ExtResource( 8 )
 script = ExtResource( 9 )
 
 [node name="Particles" type="Particles2D" parent="Game/PlayersContainer/PlayerInstance"]
+visible = false
 material = SubResource( 7 )
 amount = 5000
 lifetime = 3.0
